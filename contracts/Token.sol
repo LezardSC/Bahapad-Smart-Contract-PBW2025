@@ -17,8 +17,8 @@ import {ERC20} from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 contract Token is ERC20 {
 
     address public immutable creator;
-    string public immutable image;
-    string public immutable description;
+    string public image;
+    string public description;
     uint256 public immutable launchTimestamp;
 
     constructor(

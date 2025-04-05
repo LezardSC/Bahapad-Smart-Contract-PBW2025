@@ -21,10 +21,12 @@ contract TokenFactory {
     function createToken(
         string memory _name,
         string memory _symbol,
-        uint256 _totalSupply
+        uint256 _totalSupply,
+        string memory _image,
+        string memory _description
     ) external payable returns (address) {
 
-        Token token = new Token(msg.sender, _name, _symbol, _totalSupply);
+        Token token = new Token(msg.sender, _name, _symbol, _totalSupply, _image, _description);
 
         tokens.push(address(token));
 
