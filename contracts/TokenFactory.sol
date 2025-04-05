@@ -5,7 +5,6 @@ import {Token} from "./Token.sol";
 
 contract TokenFactory {
     address public immutable owner;
-    uint256 public creationFee;
     address[] private tokens;
 
     event TokenCreated(address indexed tokenAddress, address indexed creator, string name, string symbol);
@@ -15,9 +14,8 @@ contract TokenFactory {
         _;
     }
 
-    constructor(uint256 _creationFee) {
+    constructor() {
         owner = msg.sender;
-        creationFee = _creationFee;
     }
 
     function createToken(
@@ -25,7 +23,6 @@ contract TokenFactory {
         string memory _symbol,
         uint256 _totalSupply
     ) external payable returns (address) {
-        require(msg.value >= creationFee, "Factory: Fee not paid");
 
         Token token = new Token(msg.sender, _name, _symbol, _totalSupply);
 
@@ -38,9 +35,5 @@ contract TokenFactory {
 
     function getAllTokens() external view returns (address[] memory) {
         return tokens;
-    }
-
-    function withdrawFees() external onlyOwner {
-        payable(owner).transfer(address(this).balance);
     }
 }
