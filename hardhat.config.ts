@@ -15,7 +15,11 @@ module.exports = {
     horizon: {
       url: "https://rpc1-horizon.bahamut.io",
       accounts: [process.env.PRIVATE_KEY],
-    }
+    },
+    mainnet: {
+      url: "https://rpc1.bahamut.io",
+      accounts: [process.env.PRIVATE_KEY],
+    },
   },
 };
 

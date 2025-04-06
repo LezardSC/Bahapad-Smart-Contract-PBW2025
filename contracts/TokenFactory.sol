@@ -4,19 +4,8 @@ pragma solidity 0.8.28;
 import {Token} from "./Token.sol";
 
 contract TokenFactory {
-    address public immutable owner;
-    address[] private tokens;
 
-    event TokenCreated(address indexed tokenAddress, address indexed creator, string name, string symbol);
-
-    modifier onlyOwner() {
-        require(msg.sender == owner, "Not owner");
-        _;
-    }
-
-    constructor() {
-        owner = msg.sender;
-    }
+    event TokenCreated(address indexed tokenAddress, address indexed creator, string name, string symbol, uint256 totalSupply, string image, string description, uint256 timestamp);
 
     function createToken(
         string memory _name,
@@ -27,15 +16,9 @@ contract TokenFactory {
     ) external payable returns (address) {
 
         Token token = new Token(msg.sender, _name, _symbol, _totalSupply, _image, _description);
-
-        tokens.push(address(token));
-
-        emit TokenCreated(address(token), msg.sender, _name, _symbol);
+        emit TokenCreated(address(token), msg.sender, _name, _symbol, _totalSupply, _image, _description, block.timestamp);
         
         return address(token);
     }
 
-    function getAllTokens() external view returns (address[] memory) {
-        return tokens;
-    }
 }
